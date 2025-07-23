@@ -1,5 +1,19 @@
 const { verifyToken } = require('../services/jwt.service');
-const { ROLES, ROLE_NAMES } = require('../constants/roles');
+
+// Define role constants directly in this file
+const ROLES = {
+    USER: 1,
+    ADMIN: 2,
+    AUTHOR: 3,
+    LEADSMANAGER: 4
+};
+
+const ROLE_NAMES = {
+    1: 'user',
+    2: 'admin',
+    3: 'author',
+    4: 'leadsmanager'
+};
 
 function authMiddleware(req, res, next) {
     if (!req.headers || !req.headers.authorization || !req.headers.authorization.startsWith('Bearer ')) {
@@ -28,11 +42,12 @@ function adminOnly(req, res, next) {
     return res.status(403).json({ error: 'Forbidden: Admins only' });
 }
 
-function editorOnly(req, res, next) {
-    if (req.user && req.user.roleId === ROLES.EDITOR) {
+// Update editorOnly to authorOnly for correct role
+function authorOnly(req, res, next) {
+    if (req.user && req.user.roleId === ROLES.AUTHOR) {
         return next();
     }
-    return res.status(403).json({ error: 'Forbidden: Editors only' });
+    return res.status(403).json({ error: 'Forbidden: Authors only' });
 }
 
 function optional(req, res, next) {
@@ -62,4 +77,4 @@ function roleAuth(roles = []) {
     };
 }
 
-module.exports = Object.assign(authMiddleware, { adminOnly, editorOnly, optional, roleAuth });
+module.exports = Object.assign(authMiddleware, { adminOnly, authorOnly, optional, roleAuth });

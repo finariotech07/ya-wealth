@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const AuthController = require('../controllers/auth.controller');
 const { validateSignup, validateLogin, validateOtpVerify, validateResendOtp, validateRequestEmailChange, validateVerifyEmailChangeOtp, validateRequestPasswordReset, validateVerifyPasswordResetOtp, validateResetPassword } = require('../validations/auth.validations');
-const authMiddleware = require('../middleware/auth.middleware');
+const authMiddleware = require('../middlewares/auth.middleware');
 
 router.post('/auth/signup', validateSignup, AuthController.signup);
 router.post('/auth/verify-otp', validateOtpVerify, AuthController.verifyOtp);

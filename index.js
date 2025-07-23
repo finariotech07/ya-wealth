@@ -11,6 +11,12 @@ app.use(express.urlencoded({ extended: true }));
 // Serve static files from public
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Import auth routes
+const authRoutes = require('./routes/auth.routes');
+
+// Use auth routes
+app.use('/api', authRoutes);
+
 // Default route
 app.get('/', (req, res) => {
     res.send('Welcome to YaWealth backend!');
