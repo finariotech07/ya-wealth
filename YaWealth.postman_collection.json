@@ -613,6 +613,120 @@
                     }
                 }
             ]
+        },
+        {
+            "name": "Advisory",
+            "item": [
+                {
+                    "name": "Get All Advisory Signals (Public)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/advisory",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "advisory"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Advisory Signal By ID (Public)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/advisory/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "advisory",
+                                "1"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Create Advisory Signal (Admin)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"asset\": \"NIFTY\",\n  \"action\": \"BUY\",\n  \"entry\": 22000.00,\n  \"stop_loss\": 21800.00,\n  \"target\": 22500.00,\n  \"status\": \"Active\",\n  \"chart_url\": \"https://example.com/chart.png\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/advisory",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "advisory"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Update Advisory Signal By ID (Admin)",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"status\": \"Closed\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/advisory/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "advisory",
+                                "1"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Advisory Signal By ID (Admin)",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/advisory/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "advisory",
+                                "1"
+                            ]
+                        }
+                    }
+                }
+            ]
         }
     ],
     "event": [
