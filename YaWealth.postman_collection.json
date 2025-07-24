@@ -406,6 +406,120 @@
                     }
                 }
             ]
+        },
+        {
+            "name": "Blogs",
+            "item": [
+                {
+                    "name": "Get All Blogs (Public)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blogs",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blogs"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Blog By ID (Public)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blogs/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blogs",
+                                "1"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Create Blog (Admin/Author)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"title\": \"Sample Blog Title\",\n  \"slug\": \"sample-blog-title\",\n  \"content\": \"This is a sample blog content.\",\n  \"excerpt\": \"Short excerpt.\",\n  \"author\": \"John Doe\",\n  \"image_url\": \"https://example.com/image.jpg\",\n  \"category\": \"Finance\",\n  \"published_at\": \"2024-05-01T12:00:00Z\",\n  \"status\": \"published\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/blogs",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blogs"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Update Blog By ID (Admin/Author)",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"title\": \"Updated Blog Title\",\n  \"status\": \"draft\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/blogs/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blogs",
+                                "1"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Blog By ID (Admin/Author)",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/blogs/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blogs",
+                                "1"
+                            ]
+                        }
+                    }
+                }
+            ]
         }
     ],
     "event": [

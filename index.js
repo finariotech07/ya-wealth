@@ -14,10 +14,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Import auth routes
 const authRoutes = require('./routes/auth.routes');
 const newsRoutes = require('./routes/news.routes');
+const blogRoutes = require('./routes/blog.routes');
 
 // Use auth routes
 app.use('/api', authRoutes);
 app.use('/api', newsRoutes);
+app.use('/api', blogRoutes);
 
 // Default route
 app.get('/', (req, res) => {
