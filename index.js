@@ -15,11 +15,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 const authRoutes = require('./routes/auth.routes');
 const newsRoutes = require('./routes/news.routes');
 const blogRoutes = require('./routes/blog.routes');
+const contactRoutes = require('./routes/contact.routes');
 
 // Use auth routes
 app.use('/api', authRoutes);
 app.use('/api', newsRoutes);
 app.use('/api', blogRoutes);
+app.use('/api', contactRoutes);
 
 // Default route
 app.get('/', (req, res) => {

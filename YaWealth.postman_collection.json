@@ -520,6 +520,99 @@
                     }
                 }
             ]
+        },
+        {
+            "name": "Contact",
+            "item": [
+                {
+                    "name": "Submit Contact Form (Public)",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"username\": \"Jane Doe\",\n  \"email\": \"jane@example.com\",\n  \"number\": \"1234567890\",\n  \"message\": \"I am interested in your services.\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/contact",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "contact"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "List Submissions (Admin/Leads Manager)",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/contact",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "contact"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "View Submission By ID (Admin/Leads Manager)",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/contact/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "contact",
+                                "1"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Submission By ID (Admin/Leads Manager)",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/contact/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "contact",
+                                "1"
+                            ]
+                        }
+                    }
+                }
+            ]
         }
     ],
     "event": [
