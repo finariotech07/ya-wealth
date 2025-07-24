@@ -67,3 +67,6 @@ coverage/
 
 # Optional stylelint cache
 .stylelintcache 
+
+#public directory
+/public

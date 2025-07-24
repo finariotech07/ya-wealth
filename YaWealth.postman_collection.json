@@ -618,19 +618,42 @@
             "name": "Advisory",
             "item": [
                 {
-                    "name": "Get All Advisory Signals (Public)",
+                    "name": "Get All Advisory Signals (Public, supports filtering and sorting)",
                     "request": {
                         "method": "GET",
                         "header": [],
                         "url": {
-                            "raw": "{{base_url}}/advisory",
+                            "raw": "{{base_url}}/advisory?status=Active&asset=NIFTY&sortBy=asset&sortOrder=asc",
                             "host": [
                                 "{{base_url}}"
                             ],
                             "path": [
                                 "advisory"
+                            ],
+                            "query": [
+                                {
+                                    "key": "status",
+                                    "value": "Active",
+                                    "description": "Filter by status (Active, Pending, Closed)"
+                                },
+                                {
+                                    "key": "asset",
+                                    "value": "NIFTY",
+                                    "description": "Filter by asset name"
+                                },
+                                {
+                                    "key": "sortBy",
+                                    "value": "asset",
+                                    "description": "Sort by asset, action, or status"
+                                },
+                                {
+                                    "key": "sortOrder",
+                                    "value": "asc",
+                                    "description": "Sort order: asc or desc"
+                                }
                             ]
-                        }
+                        },
+                        "description": "Response: Each signal's chart_url is a public URL if present."
                     }
                 },
                 {
@@ -647,11 +670,30 @@
                                 "advisory",
                                 "1"
                             ]
+                        },
+                        "description": "Response: chart_url is a public URL if present."
+                    }
+                },
+                {
+                    "name": "Count Distinct Asset Types (Public)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/advisory/assets/count",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "advisory",
+                                "assets",
+                                "count"
+                            ]
                         }
                     }
                 },
                 {
-                    "name": "Create Advisory Signal (Admin)",
+                    "name": "Create Advisory Signal (Admin, with chart image)",
                     "request": {
                         "method": "POST",
                         "header": [
@@ -662,8 +704,44 @@
                             }
                         ],
                         "body": {
-                            "mode": "raw",
-                            "raw": "{\n  \"asset\": \"NIFTY\",\n  \"action\": \"BUY\",\n  \"entry\": 22000.00,\n  \"stop_loss\": 21800.00,\n  \"target\": 22500.00,\n  \"status\": \"Active\",\n  \"chart_url\": \"https://example.com/chart.png\"\n}"
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "asset",
+                                    "value": "NIFTY",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "action",
+                                    "value": "BUY",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "entry",
+                                    "value": "22000.00",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "stop_loss",
+                                    "value": "21800.00",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "target",
+                                    "value": "22500.00",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "status",
+                                    "value": "Active",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "chart",
+                                    "type": "file",
+                                    "src": ""
+                                }
+                            ]
                         },
                         "url": {
                             "raw": "{{base_url}}/advisory",
@@ -673,11 +751,12 @@
                             "path": [
                                 "advisory"
                             ]
-                        }
+                        },
+                        "description": "Send as multipart/form-data. 'chart' is the file field for the chart image."
                     }
                 },
                 {
-                    "name": "Update Advisory Signal By ID (Admin)",
+                    "name": "Update Advisory Signal By ID (Admin, with chart image)",
                     "request": {
                         "method": "PUT",
                         "header": [
@@ -688,8 +767,24 @@
                             }
                         ],
                         "body": {
-                            "mode": "raw",
-                            "raw": "{\n  \"status\": \"Closed\"\n}"
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "status",
+                                    "value": "Closed",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "target",
+                                    "value": "23000.00",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "chart",
+                                    "type": "file",
+                                    "src": ""
+                                }
+                            ]
                         },
                         "url": {
                             "raw": "{{base_url}}/advisory/1",
@@ -700,7 +795,8 @@
                                 "advisory",
                                 "1"
                             ]
-                        }
+                        },
+                        "description": "Send as multipart/form-data. 'chart' is the file field for the chart image."
                     }
                 },
                 {

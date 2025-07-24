@@ -6,13 +6,18 @@ async function createSignal(data) {
     return { id };
 }
 
-// Get all signals (optionally filter by status or asset)
-async function getAllSignals(filters = {}) {
+// Get all signals (optionally filter by status or asset, with sorting)
+async function getAllSignals(filters = {}, sortBy = null, sortOrder = 'asc') {
     let query = db('advisory_signals').select('*');
     for (const [field, value] of Object.entries(filters)) {
         query = query.where(field, value);
     }
-    return await query.orderBy('created_at', 'desc');
+    if (sortBy && ['asset', 'action', 'status'].includes(sortBy)) {
+        query = query.orderBy(sortBy, sortOrder);
+    } else {
+        query = query.orderBy('created_at', 'desc');
+    }
+    return await query;
 }
 
 // Get signal by ID
@@ -32,10 +37,17 @@ async function deleteSignalById(id) {
     return affectedRows > 0;
 }
 
+// Count distinct asset types
+async function countDistinctAssets() {
+    const result = await db('advisory_signals').countDistinct('asset as count');
+    return result[0].count;
+}
+
 module.exports = {
     createSignal,
     getAllSignals,
     getSignalById,
     updateSignalById,
-    deleteSignalById
+    deleteSignalById,
+    countDistinctAssets
 }; 
