@@ -13,9 +13,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Import auth routes
 const authRoutes = require('./routes/auth.routes');
+const newsRoutes = require('./routes/news.routes');
 
 // Use auth routes
 app.use('/api', authRoutes);
+app.use('/api', newsRoutes);
 
 // Default route
 app.get('/', (req, res) => {

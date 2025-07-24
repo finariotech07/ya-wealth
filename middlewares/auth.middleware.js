@@ -77,4 +77,12 @@ function roleAuth(roles = []) {
     };
 }
 
-module.exports = Object.assign(authMiddleware, { adminOnly, authorOnly, optional, roleAuth });
+// Middleware to allow only admin or author
+function authorOrAdminOnly(req, res, next) {
+    if (req.user && (req.user.role_id === 2 || req.user.role_id === 3)) {
+        return next();
+    }
+    return res.status(403).json({ success: false, message: 'Forbidden: Admin or Author only' });
+}
+
+module.exports = Object.assign(authMiddleware, { adminOnly, authorOnly, optional, roleAuth, authorOrAdminOnly });

@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS users (
     fname VARCHAR(100),
     lname VARCHAR(100),
     phone VARCHAR(20),
-    role_id INT NOT NULL,
+    role_id INT NOT NULL DEFAULT 1,
     is_verified BOOLEAN DEFAULT FALSE,
     auth_provider VARCHAR(50) DEFAULT 'manual',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
