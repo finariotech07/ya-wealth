@@ -326,11 +326,12 @@
                             "path": [
                                 "news"
                             ]
-                        }
+                        },
+                        "description": "Response: Each news item's image_url is a public URL if present."
                     }
                 },
                 {
-                    "name": "Create News (Admin/Author)",
+                    "name": "Create News (Admin/Author, with image)",
                     "request": {
                         "method": "POST",
                         "header": [
@@ -341,8 +342,49 @@
                             }
                         ],
                         "body": {
-                            "mode": "raw",
-                            "raw": "{\n  \"type\": \"article\",\n  \"title\": \"Sample News Title\",\n  \"description\": \"This is a sample news description.\",\n  \"source\": \"Reuters\",\n  \"link\": \"https://example.com/news\",\n  \"timestamp\": \"2024-05-01T12:00:00Z\",\n  \"status\": \"live\",\n  \"image_url\": \"https://example.com/image.jpg\"\n}"
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "type",
+                                    "value": "article",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "title",
+                                    "value": "Sample News Title",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "description",
+                                    "value": "This is a sample news description.",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "source",
+                                    "value": "Reuters",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "link",
+                                    "value": "https://example.com/news",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "timestamp",
+                                    "value": "2024-05-01T12:00:00Z",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "status",
+                                    "value": "live",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "image",
+                                    "type": "file",
+                                    "src": ""
+                                }
+                            ]
                         },
                         "url": {
                             "raw": "{{base_url}}/news",
@@ -352,11 +394,12 @@
                             "path": [
                                 "news"
                             ]
-                        }
+                        },
+                        "description": "Send as multipart/form-data. 'image' is the file field for the news image."
                     }
                 },
                 {
-                    "name": "Update News By ID (Admin/Author)",
+                    "name": "Update News By ID (Admin/Author, with image)",
                     "request": {
                         "method": "PUT",
                         "header": [
@@ -367,8 +410,24 @@
                             }
                         ],
                         "body": {
-                            "mode": "raw",
-                            "raw": "{\n  \"title\": \"Updated News Title\",\n  \"status\": \"recent\"\n}"
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "title",
+                                    "value": "Updated News Title",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "status",
+                                    "value": "recent",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "image",
+                                    "type": "file",
+                                    "src": ""
+                                }
+                            ]
                         },
                         "url": {
                             "raw": "{{base_url}}/news/1",
@@ -379,7 +438,8 @@
                                 "news",
                                 "1"
                             ]
-                        }
+                        },
+                        "description": "Send as multipart/form-data. 'image' is the file field for the news image."
                     }
                 },
                 {
@@ -444,7 +504,7 @@
                     }
                 },
                 {
-                    "name": "Create Blog (Admin/Author)",
+                    "name": "Create Blog (Admin/Author, with image)",
                     "request": {
                         "method": "POST",
                         "header": [
@@ -455,8 +515,54 @@
                             }
                         ],
                         "body": {
-                            "mode": "raw",
-                            "raw": "{\n  \"title\": \"Sample Blog Title\",\n  \"slug\": \"sample-blog-title\",\n  \"content\": \"This is a sample blog content.\",\n  \"excerpt\": \"Short excerpt.\",\n  \"author\": \"John Doe\",\n  \"image_url\": \"https://example.com/image.jpg\",\n  \"category\": \"Finance\",\n  \"published_at\": \"2024-05-01T12:00:00Z\",\n  \"status\": \"published\"\n}"
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "title",
+                                    "value": "Sample Blog Title",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "slug",
+                                    "value": "sample-blog-title",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "content",
+                                    "value": "This is a sample blog content.",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "excerpt",
+                                    "value": "Short excerpt.",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "author",
+                                    "value": "John Doe",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "image",
+                                    "type": "file",
+                                    "src": ""
+                                },
+                                {
+                                    "key": "category",
+                                    "value": "Finance",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "published_at",
+                                    "value": "2024-05-01T12:00:00Z",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "status",
+                                    "value": "published",
+                                    "type": "text"
+                                }
+                            ]
                         },
                         "url": {
                             "raw": "{{base_url}}/blogs",
@@ -466,11 +572,12 @@
                             "path": [
                                 "blogs"
                             ]
-                        }
+                        },
+                        "description": "Send as multipart/form-data. 'image' is the file field for the blog image."
                     }
                 },
                 {
-                    "name": "Update Blog By ID (Admin/Author)",
+                    "name": "Update Blog By ID (Admin/Author, with image)",
                     "request": {
                         "method": "PUT",
                         "header": [
@@ -481,8 +588,24 @@
                             }
                         ],
                         "body": {
-                            "mode": "raw",
-                            "raw": "{\n  \"title\": \"Updated Blog Title\",\n  \"status\": \"draft\"\n}"
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "title",
+                                    "value": "Updated Blog Title",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "status",
+                                    "value": "draft",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "image",
+                                    "type": "file",
+                                    "src": ""
+                                }
+                            ]
                         },
                         "url": {
                             "raw": "{{base_url}}/blogs/1",
@@ -493,7 +616,8 @@
                                 "blogs",
                                 "1"
                             ]
-                        }
+                        },
+                        "description": "Send as multipart/form-data. 'image' is the file field for the blog image."
                     }
                 },
                 {
