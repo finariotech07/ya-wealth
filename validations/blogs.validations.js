@@ -14,13 +14,11 @@ function validate(schema) {
 
 const blogSchema = z.object({
     title: z.string().min(1),
-    slug: z.string().optional(),
+    slug: z.string().min(1).regex(/^[a-z0-9-]+$/, 'Slug must contain only lowercase letters, numbers, and hyphens'),
     content: z.string().min(1),
     excerpt: z.string().optional(),
-    author: z.string().optional(),
     image_url: z.string().optional(),
     category: z.string().optional(),
-    published_at: z.string().datetime().optional(),
     status: z.string().optional()
 });
 

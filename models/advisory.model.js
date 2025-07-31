@@ -37,10 +37,15 @@ async function deleteSignalById(id) {
     return affectedRows > 0;
 }
 
-// Count distinct asset types
-async function countDistinctAssets() {
-    const result = await db('advisory_signals').countDistinct('asset as count');
-    return result[0].count;
+// Get distinct asset types with count
+async function getDistinctAssets() {
+    const countResult = await db('advisory_signals').countDistinct('asset as count');
+    const distinctAssets = await db('advisory_signals').distinct('asset').orderBy('asset');
+
+    return {
+        count: countResult[0].count,
+        assets: distinctAssets.map(item => item.asset)
+    };
 }
 
 module.exports = {
@@ -49,5 +54,5 @@ module.exports = {
     getSignalById,
     updateSignalById,
     deleteSignalById,
-    countDistinctAssets
+    getDistinctAssets
 }; 

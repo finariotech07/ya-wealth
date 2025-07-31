@@ -24,6 +24,7 @@ const AdvisoryController = {
             const filters = {};
             if (req.query.status) filters.status = req.query.status;
             if (req.query.asset) filters.asset = req.query.asset;
+            if (req.query.action) filters.action = req.query.action;
             const sortBy = req.query.sortBy;
             const sortOrder = req.query.sortOrder || 'asc';
             const signals = await AdvisoryModel.getAllSignals(filters, sortBy, sortOrder);
@@ -75,8 +76,12 @@ const AdvisoryController = {
     },
     async countAssets(req, res) {
         try {
-            const count = await AdvisoryModel.countDistinctAssets();
-            res.status(200).json({ success: true, count });
+            const result = await AdvisoryModel.getDistinctAssets();
+            res.status(200).json({
+                success: true,
+                count: result.count,
+                assets: result.assets
+            });
         } catch (err) {
             res.status(500).json({ success: false, message: err.message });
         }

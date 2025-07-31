@@ -79,7 +79,7 @@ function roleAuth(roles = []) {
 
 // Middleware to allow only admin or author
 function authorOrAdminOnly(req, res, next) {
-    if (req.user && (req.user.role_id === 2 || req.user.role_id === 3)) {
+    if (req.user && (req.user.roleId === 2 || req.user.roleId === 3)) {
         return next();
     }
     return res.status(403).json({ success: false, message: 'Forbidden: Admin or Author only' });

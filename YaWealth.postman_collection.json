@@ -370,11 +370,6 @@
                                     "type": "text"
                                 },
                                 {
-                                    "key": "timestamp",
-                                    "value": "2024-05-01T12:00:00Z",
-                                    "type": "text"
-                                },
-                                {
                                     "key": "status",
                                     "value": "live",
                                     "type": "text"
@@ -487,6 +482,25 @@
                     }
                 },
                 {
+                    "name": "Get Blog By Slug (Public)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blogs/slug/sample-blog-title",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blogs",
+                                "slug",
+                                "sample-blog-title"
+                            ]
+                        },
+                        "description": "Get blog by SEO-friendly slug. Returns blog with author information."
+                    }
+                },
+                {
                     "name": "Get Blog By ID (Public)",
                     "request": {
                         "method": "GET",
@@ -538,11 +552,6 @@
                                     "type": "text"
                                 },
                                 {
-                                    "key": "author",
-                                    "value": "John Doe",
-                                    "type": "text"
-                                },
-                                {
                                     "key": "image",
                                     "type": "file",
                                     "src": ""
@@ -550,11 +559,6 @@
                                 {
                                     "key": "category",
                                     "value": "Finance",
-                                    "type": "text"
-                                },
-                                {
-                                    "key": "published_at",
-                                    "value": "2024-05-01T12:00:00Z",
                                     "type": "text"
                                 },
                                 {
@@ -573,7 +577,7 @@
                                 "blogs"
                             ]
                         },
-                        "description": "Send as multipart/form-data. 'image' is the file field for the blog image."
+                        "description": "Send as multipart/form-data. 'image' is the file field for the blog image. Slug is required and must contain only lowercase letters, numbers, and hyphens."
                     }
                 },
                 {
@@ -766,6 +770,11 @@
                                     "description": "Filter by asset name"
                                 },
                                 {
+                                    "key": "action",
+                                    "value": "BUY",
+                                    "description": "Filter by action (BUY, SELL)"
+                                },
+                                {
                                     "key": "sortBy",
                                     "value": "asset",
                                     "description": "Sort by asset, action, or status"
@@ -799,7 +808,7 @@
                     }
                 },
                 {
-                    "name": "Count Distinct Asset Types (Public)",
+                    "name": "Get Distinct Asset Types (Public)",
                     "request": {
                         "method": "GET",
                         "header": [],
@@ -813,7 +822,8 @@
                                 "assets",
                                 "count"
                             ]
-                        }
+                        },
+                        "description": "Returns count and list of distinct asset types available in advisory signals."
                     }
                 },
                 {

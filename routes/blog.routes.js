@@ -20,6 +20,7 @@ const upload = multer({ storage });
 
 // Public routes
 router.get('/blogs', BlogController.getAll);
+router.get('/blogs/:slug', BlogController.getBySlug);
 router.get('/blogs/:id', BlogController.getById);
 
 // Admin/Author only routes

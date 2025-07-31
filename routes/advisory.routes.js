@@ -19,7 +19,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // Public routes
-// GET /advisory?sortBy=asset|action|status&sortOrder=asc|desc
+// GET /advisory?asset=NIFTY&action=BUY&status=Active&sortBy=asset|action|status&sortOrder=asc|desc
 router.get('/advisory', AdvisoryController.getAll);
 router.get('/advisory/:id', AdvisoryController.getById);
 router.get('/advisory/assets/count', AdvisoryController.countAssets);
