@@ -1,3 +1,4 @@
+
 name: Deploy Ya Wealth Backend
 
 on:
@@ -17,17 +18,18 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.DEPLOY_HOST }} >> ~/.ssh/known_hosts
+          ssh-keyscan -H ${{ secrets.DEPLOY_HOST }} >> ~/.ssh/known_hosts 2>/dev/null || true
 
-      - name: Deploy to Server
+      - name: Deploy Code to Server
         run: |
-          rsync -avz --exclude="node_modules" --exclude=".git" -e "ssh -i ~/.ssh/id_rsa" ./ ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.REMOTE_DIR }}
+          rsync -avz --exclude="node_modules" --exclude=".git" -e "ssh -i ~/.ssh/id_rsa" ./ \
+          ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.REMOTE_DIR }}
 
-      - name: Build and Start
+      - name: Install, Build, and Restart Server
         run: |
-          ssh -i ~/.ssh/id_rsa ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} << EOF
+          ssh -i ~/.ssh/id_rsa ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} << 'EOF'
             cd ${{ secrets.REMOTE_DIR }}
             npm install
-            npm run build || true  # if it's a pure API, build may not be needed
+            npm run build || true
             pm2 restart ya-wealth || pm2 start npm --name "ya-wealth" -- run start
           EOF
