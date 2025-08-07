@@ -1,4 +1,5 @@
-name: Deploy Fullstack to QA (Self-Hosted)
+# .github/workflows/trigger-admin-panel.yml
+name: Trigger Admin Panel Workflow
 
 on:
   push:
@@ -6,53 +7,12 @@ on:
       - main
 
 jobs:
-  deploy:
-    runs-on: self-hosted
-
+  dispatch:
+    runs-on: ubuntu-latest
     steps:
-      - name: 🧹 Clean old frontend/backend folders
-        run: |
-          echo "Cleaning /var/www folders"
-          sudo rm -rf /var/www/admin-panel
-          sudo rm -rf /var/www/ya-wealth
-          
-      - name: Who am I
-        run: whoami
-
-      - name: 📁 Create /var/www folders and set permissions
-        run: |
-          sudo mkdir -p /var/www/admin-panel
-          sudo mkdir -p /var/www/ya-wealth
-          sudo chown -R $USER:$USER /var/www
-
-      - name: ⬇️ Clone Backend Repo (ya-wealth)
-        run: |
-          git clone https://github.com/finariotech07/ya-wealth.git /var/www/ya-wealth
-
-      - name: ⬇️ Clone Frontend Repo (admin-panel)
-        run: |
-          git clone https://github.com/finariotech07/admin-panel.git /var/www/admin-panel
-
-      - name: ⚙️ Install & Build Backend
-        run: |
-          cd /var/www/ya-wealth
-          sudo npm install
-          sudo npm run build || true
-
-      - name: 🚀 Start Backend with PM2
-        run: |
-          cd /var/www/ya-wealth
-          sudo pm2 delete ya-wealth || true
-          sudo pm2 start npm --name ya-wealth -- run start
-
-      - name: ⚙️ Install & Build Frontend
-        run: |
-          cd /var/www/admin-panel
-          sudo npm install
-          sudo npm run build
-
-      - name: 🚀 Start Frontend with PM2
-        run: |
-          cd /var/www/admin-panel
-          sudo pm2 delete admin-panel || true
-          sudo pm2 start npm --name admin-panel -- run start
+      - name: Trigger Admin Panel Repo
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}  # Personal Access Token (PAT)
+          repository: your-org/admin-panel
+          event-type: backend-updated
