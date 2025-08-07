@@ -1,5 +1,4 @@
-# .github/workflows/trigger-admin-panel.yml
-name: Trigger Admin Panel Workflow
+name: Notify Admin Panel to Deploy
 
 on:
   push:
@@ -13,6 +12,6 @@ jobs:
       - name: Trigger Admin Panel Repo
         uses: peter-evans/repository-dispatch@v3
         with:
-          token: ${{ secrets.REPO_ACCESS_TOKEN }}  # Personal Access Token (PAT)
-          repository: your-org/admin-panel
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          repository: finariotech07/admin-panel
           event-type: backend-updated
